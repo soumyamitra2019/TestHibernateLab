@@ -25,28 +25,21 @@ public class BookDaoImpl implements BookDao {
 		return sessionFactory.getCurrentSession();
 	}
 	
-//	private Transaction getTransaction() {
-//		return getSession().getTransaction();
-//	}
 	@Override
 	public void persistObjectGraph(Book book) {
 		// TODO Auto-generated method stub
 		List<Chapter> chapter = book.getChapters();
 		Publisher publisherCode = book.getPublisherCode();
-//		getTransaction().begin();
 		getSession().save(book);
 		getSession().save(publisherCode);
 		for(Chapter chap:chapter)
 		getSession().save(chap);
-//		getTransaction().commit();
 		
 	}
 	@Override
 	public Book retrieveObjectGraph(String isbn) {
 		// TODO Auto-generated method stub
-//		getTransaction().begin();
 		Book book=getSession().get(Book.class,isbn);
-//		getTransaction().commit();
 		return book;
 	}
 	
